@@ -1,4 +1,4 @@
-package exercise;
+package com.ipartek.exercise;
 /**this is used to make the documantation for calss in java from now on
  * we will have to use this documentatuin
  * 
