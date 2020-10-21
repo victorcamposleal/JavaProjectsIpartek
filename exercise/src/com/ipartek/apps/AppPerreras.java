@@ -14,11 +14,19 @@ import com.ipartek.pojo.Perro;
  */
 
 public class AppPerreras {
+
 //We have to declare Global variables
 
-	static Scanner sc = null;
-	static ArrayList<Perro> perros = new ArrayList<Perro>();
-	static String opcion = "";// option selected by the menu;
+	static private Scanner sc = null;
+	static private ArrayList<Perro> perros = new ArrayList<Perro>();
+	static private String opcion = "";// option selected by the menu;
+
+//locales variables
+
+	private static final String OPTION_LI = "1";
+	private static final String OPTION_CR = "2";
+	private static final String OPTION_EL = "3";
+	private static final String OPTION_MO = "4";
 
 	public static void main(String[] args) {
 
@@ -31,19 +39,19 @@ public class AppPerreras {
 		do {
 			mostarMenu();
 			switch (opcion) {
-			case "1":
+			case OPTION_LI:
 				listar();
 				break;
 
-			case "2":
+			case OPTION_CR:
 				crear();
 				break;
 
-			case "3":
+			case OPTION_EL:
 				borrar();
 				break;
 
-			case "4":
+			case OPTION_MO:
 				modificar();
 				break;
 
