@@ -3,6 +3,7 @@ package com.ipartek.apps;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.ipartek.modelo.PerroDAOArrayList;
 import com.ipartek.pojo.Perro;
 
 /**
@@ -18,7 +19,8 @@ public class AppPerreras {
 //We have to declare Global variables
 
 	static private Scanner sc = null;
-	static private ArrayList<Perro> perros = new ArrayList<Perro>();
+	static private PerroDAOArrayList modelo = new PerroDAOArrayList();
+
 	static private String opcion = "";// option selected by the menu;
 
 //locales variables
@@ -27,13 +29,15 @@ public class AppPerreras {
 	private static final String OPTION_CR = "2";
 	private static final String OPTION_EL = "3";
 	private static final String OPTION_MO = "4";
+	private static final String OPTION_OU = "S";
+	private static boolean repeat = false;
 
 	public static void main(String[] args) {
 
 		System.out.println("******Welcome to the appp**********");
 		sc = new Scanner(System.in);
 		// method to initialize data
-		inicializarDatos();
+
 		// method to show menu
 
 		do {
@@ -55,32 +59,112 @@ public class AppPerreras {
 				modificar();
 				break;
 
+			case OPTION_OU:
+
+				System.out.println("************bye****************");
+				repeat = true;
+				break;
+
 			default:
 				System.out.println("please select a valid option");
 				break;
 			}
 
-		} while (!opcion.equals("S"));
+		} while (!repeat);
 		// !OPCION_SALIR.equalsIgnoreCase(opcion)
-		System.out.println("******bye**********");
+
 		sc.close();
 	}// main
 
 	private static void modificar() {
 		// TODO generar y modificar
-		System.out.println("ingrese el nombre que quiere modificar");
-		String dname = sc.nextLine();
-		System.out.println("ingrese el nuevo nombre");
-		String newName = sc.nextLine();
-		for (Perro perro : perros) {
-			if (dname.equals(perro.getNombre())) {
+		ArrayList<Perro> perros = modelo.listar();
 
-				perro.setNombre(newName);
+		System.out.println("what you wish to modify ");
+		System.out.println("1.Name ");
+		System.out.println("2.Years");
+		System.out.println("3.Breed");
+		System.out.println("4.isVaccinated");
+
+		String option = sc.nextLine();
+		System.out.println("ingrese el nombre del que quiere modificar");
+		String dname = sc.nextLine();
+		boolean repetidor = true;
+
+		do {
+			switch (option) {
+			case "1":
+				System.out.println("ingrese el nuevo nombre");
+				String newName = sc.nextLine();
+				for (Perro perro : perros) {
+					if (dname.equals(perro.getNombre())) {
+
+						perro.setNombre(newName);
+						break;
+					}
+					repetidor = false;
+				}
+				break;
+
+			case "2":
+				System.out.println("ingrese la nueva edad");
+				int newYear = Integer.parseInt(sc.nextLine());
+				for (Perro perro : perros) {
+					if (dname.equals(perro.getNombre())) {
+						try {
+							perro.setEdad(newYear);
+							break;
+						} catch (Exception e) {
+							System.out.println(e.getMessage());
+						}
+					}
+					repetidor = false;
+				}
+				break;
+
+			case "3":
+				System.out.println("ingrese la nueva Raza");
+				String newRaza = sc.nextLine();
+				for (Perro perro : perros) {
+					if (dname.equals(perro.getNombre())) {
+
+						perro.setRaza(newRaza);
+						break;
+					}
+					repetidor = false;
+				}
+				break;
+
+			case "4":
+				System.out.println("Vacunado S (yes) o N (no)");
+				String newVacunado = sc.nextLine();
+				boolean vacuna = true;
+				if (newVacunado.equals("s")) {
+					vacuna = true;
+
+				}
+
+				if (newVacunado.equals("n")) {
+					vacuna = false;
+
+				}
+
+				for (Perro perro : perros) {
+					if (dname.equals(perro.getNombre())) {
+
+						perro.setIsVacunado(vacuna);
+						break;
+					}
+					repetidor = false;
+				}
+				break;
+
+			default:
+				System.out.println("eliga una opcion valida");
+				repetidor = false;
 				break;
 			}
-
-		}
-
+		} while (repetidor);
 	}
 
 	// ******************all the methods we will use in this
@@ -88,6 +172,7 @@ public class AppPerreras {
 	private static void borrar() {
 		System.out.println("dime un el nombre del perro que quieres eliminar");
 		String dnombre = sc.nextLine();
+		ArrayList<Perro> perros = modelo.listar();
 		for (Perro perro : perros) {
 			if (dnombre.equals(perro.getNombre())) {
 
@@ -99,7 +184,9 @@ public class AppPerreras {
 	}
 
 	private static void crear() {
+		ArrayList<Perro> perros = modelo.listar();
 		Perro p = new Perro();
+
 		System.out.println("introduce un nombre");
 		p.setNombre(sc.nextLine());
 		try {
@@ -115,6 +202,8 @@ public class AppPerreras {
 	}
 
 	private static void listar() {
+
+		ArrayList<Perro> perros = modelo.listar();
 		for (Perro perro : perros) {
 			System.out.printf(" %s [%s] %d years %n", perro.getNombre(), perro.getRaza(), perro.getEdad());
 
@@ -137,39 +226,4 @@ public class AppPerreras {
 		// TODO gestionar errores
 		opcion = sc.nextLine();
 	}
-
-	private static void inicializarDatos() {
-		try {
-			Perro p = new Perro();
-			p.setEdad(15);
-			p.setRaza("german shepard");
-			p.setNombre("otto");
-			perros.add(p);
-
-			p = new Perro();
-			p.setEdad(15);
-			p.setRaza("chihuahua");
-			p.setNombre("last");
-			perros.add(p);
-
-			p = new Perro();
-			p.setEdad(7);
-			p.setRaza("Border Collie");
-			p.setNombre("Lassie");
-			perros.add(p);
-
-			p = new Perro();
-			p.setEdad(7);
-			p.setRaza("Border Collie");
-			p.setNombre("pongo");
-			perros.add(p);
-		}
-
-		catch (Exception e) {
-
-			System.out.println(e.getMessage());
-		}
-
-	}
-
 }

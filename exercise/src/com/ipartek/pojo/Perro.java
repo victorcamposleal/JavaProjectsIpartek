@@ -6,6 +6,7 @@ public class Perro {
 	public static final int EDAD_MAX = 120;
 
 	// atributos
+	private int id;
 	private String nombre;
 	private String raza;
 	private int edad;
@@ -19,6 +20,7 @@ public class Perro {
 		this.raza = "";
 		this.isVacunado = true;
 		this.edad = EDAD_MIN;
+		this.id = 0;
 	}
 
 //getters y setters
@@ -62,11 +64,19 @@ public class Perro {
 		this.edad = edad;
 	}
 
-	@Override
-	public String toString() {
-		return "Perro [nombre=" + nombre + ", raza=" + raza + ", edad=" + edad + ", vacunado=" + isVacunado + "]";
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	// WE ADD THE TO STRING
+	@Override
+	public String toString() {
+		return "Perro [id=" + id + ", nombre=" + nombre + ", raza=" + raza + ", edad=" + edad + ", isVacunado="
+				+ isVacunado + "]";
+	}
 
 }
