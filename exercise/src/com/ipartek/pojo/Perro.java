@@ -1,22 +1,33 @@
 package com.ipartek.pojo;
 
-public class Perro {
+public class Perro extends Mamifero {
 //varibles para todo el sistema
 	public static final int EDAD_MIN = 0;
 	public static final int EDAD_MAX = 120;
-
-	// atributos
+	// Atributos, deben ser siempre privados
+	// la forma de manipular estos atributos es a traves de los getteres y settres
 	private int id;
-	private String nombre;
+
 	private String raza;
 	private int edad;
 	private boolean isVacunado;
 
-	// costructor por defecto
+	// Constructores
+	///////////////////////////////////////
 
 	public Perro() {
-		super();
-		this.nombre = "";
+		super("sin nombre");
+
+		this.raza = "";
+		this.isVacunado = true;
+		this.edad = EDAD_MIN;
+		this.id = 0;
+	}
+
+	// otro constructor sobrecargado
+	public Perro(String nombre) {
+		super(nombre);
+
 		this.raza = "";
 		this.isVacunado = true;
 		this.edad = EDAD_MIN;
@@ -24,13 +35,6 @@ public class Perro {
 	}
 
 //getters y setters
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
 
 	public String getRaza() {
 		return raza;
@@ -72,11 +76,13 @@ public class Perro {
 		this.id = id;
 	}
 
-	// WE ADD THE TO STRING
 	@Override
 	public String toString() {
-		return "Perro [id=" + id + ", nombre=" + nombre + ", raza=" + raza + ", edad=" + edad + ", isVacunado="
-				+ isVacunado + "]";
+		return "Perro [id=" + id + ", raza=" + raza + ", edad=" + edad + ", isVacunado=" + isVacunado + ", getPatas()="
+				+ getPatas() + ", getNombre()=" + getNombre() + ", getClass()=" + getClass() + ", hashCode()="
+				+ hashCode() + ", toString()=" + super.toString() + "]";
 	}
+
+	// WE ADD THE TO STRING
 
 }

@@ -5,8 +5,8 @@ public class DomesticCat extends Cat {
 	private boolean vacunado;
 	private boolean castrado;
 
-	public DomesticCat(String nombre, int patas) {
-		super(nombre, patas);
+	public DomesticCat(String nombre) {
+		super(nombre);
 		this.castrado = false;
 		this.vacunado = true;
 

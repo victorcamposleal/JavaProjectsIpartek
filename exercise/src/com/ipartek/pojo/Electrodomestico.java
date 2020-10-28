@@ -11,6 +11,13 @@ public class Electrodomestico {
 
 	}
 
+	public Electrodomestico(String nombre, int precio) {
+		this();
+		this.nombre = nombre;
+		this.precio = precio;
+
+	}
+
 	public String getNombre() {
 		return nombre;
 	}

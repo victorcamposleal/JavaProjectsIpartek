@@ -8,8 +8,8 @@ package com.ipartek.pojo;
  */
 public class Cat extends Mamifero {
 
-	public Cat(String nombre, int patas) {
-		super(nombre, 4);
+	public Cat(String nombre) {
+		super(nombre);
 		// TODO Auto-generated constructor stub
 	}
 

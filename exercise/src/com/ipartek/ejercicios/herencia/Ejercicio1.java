@@ -3,6 +3,8 @@ package com.ipartek.ejercicios.herencia;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.ipartek.pojo.Electrodomestico;
+import com.ipartek.pojo.Televisor;
 import com.ipartek.pojo.TipoPantalla;
 
 /**
@@ -31,6 +33,10 @@ public class Ejercicio1 {
 	// declaro variable global
 	static Scanner sc = null;
 	static ArrayList<TipoPantalla> pantallas = new ArrayList<TipoPantalla>();
+	static ArrayList<Electrodomestico> lista = new ArrayList<>();
+
+	// tambien pudimos haber metido un static ArrayList<Electrodomestico> pantallas
+	// = new ArrayList<>();
 	static String opcion = "";
 	static int contador = 0;
 
@@ -51,7 +57,42 @@ public class Ejercicio1 {
 
 			contador = contador + 1;
 
-		} while (contador < 5);
+		} while (contador < 1);
+
+		Electrodomestico plancha = new Electrodomestico();
+		plancha.setNombre("Balay");
+		plancha.setPrecio(300);
+		lista.add(plancha);
+
+		Televisor tele = new Televisor();
+		tele.setNombre("LG");
+		tele.setPrecio(350);
+		tele.setPulgadas(45);
+		lista.add(tele);
+
+		TipoPantalla tvp = new TipoPantalla();
+		tvp.setNombre("samsung");
+		tvp.setPrecio(500);
+		tvp.setPulgadas(40);
+		tvp.setPantalla("led");
+		lista.add(tvp);
+
+		for (Electrodomestico elect : lista) {
+			if (elect instanceof Televisor) {
+				// podemos castear usando (Television)y asi nos permite acceder alos metodos de
+				// esa clase
+				System.out.println(((Televisor) elect).getPulgadas());
+
+			}
+
+			if (elect instanceof TipoPantalla) {
+				// se puede castear y asignar a una variable
+				System.out.println(((TipoPantalla) elect).getPantalla());
+				TipoPantalla tvps = (TipoPantalla) elect;
+				tvp.getPantalla();
+
+			}
+		}
 
 		for (TipoPantalla pantalla : pantallas) {
 

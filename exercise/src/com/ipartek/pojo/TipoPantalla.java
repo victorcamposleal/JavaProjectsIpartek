@@ -7,7 +7,11 @@ public class TipoPantalla extends Televisor {
 	public TipoPantalla() {
 		super();
 		this.pantalla = "";
-		// TODO Auto-generated constructor stub
+	}
+
+	public TipoPantalla(String nombre, int precio, int pulgadas, String pantalla) {
+		super(nombre, precio, pulgadas);
+		this.pantalla = pantalla;
 	}
 
 	public String getPantalla() {

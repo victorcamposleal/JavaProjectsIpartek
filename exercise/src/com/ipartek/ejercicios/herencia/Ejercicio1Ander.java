@@ -24,11 +24,11 @@ public class Ejercicio1Ander {
 		prof.setEdad(40);
 		prof.setMateria("Microbiology");
 
-		Dog d = new Dog(null, 0);
+		Dog d = new Dog(null);
 		d.setNombre("rufus");
 		d.setPatas(9);
 
-		DomesticCat c = new DomesticCat(null, 0);
+		DomesticCat c = new DomesticCat(null);
 		c.setCastrado(false);
 		c.setNombre("rufina");
 		c.setPatas(4);

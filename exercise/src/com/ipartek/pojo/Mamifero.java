@@ -12,7 +12,7 @@ public class Mamifero {
 				JOptionPane.INFORMATION_MESSAGE);
 	}
 
-	public Mamifero(String nombre, int patas) {
+	public Mamifero(String nombre) {
 		super();
 		this.nombre = nombre;
 		this.patas = 4;
