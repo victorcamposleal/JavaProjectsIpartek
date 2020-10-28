@@ -1,6 +1,7 @@
 package com.ipartek.apps.cartas;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public abstract class Baraja {
 	private ArrayList<Carta> mazo;
@@ -59,6 +60,34 @@ public abstract class Baraja {
 	}
 
 	void barajar() {
+
+		System.out.println("-------------------------------barajea-----------------------------------");
+		Collections.shuffle(mazo);
+		for (Carta card : getMazo()) {
+
+			System.out.printf("%s de %s %n", card.getNumero(), card.getPalo().getNombre());
+			System.out.println("-------------------------------termina------------------------------------------");
+		}
+
 	}
 
+	void barajarsp() {
+		System.out.println(
+				"---------------------------------barajeamos carta Spanish------------------------------------");
+		ArrayList<Carta> mazoBarajedo = new ArrayList<Carta>();
+
+		while (mazo.size() > 0) {
+			int index = (int) (Math.random() * mazo.size());
+			mazoBarajedo.add(mazo.remove(index));
+		}
+		for (Carta Cartasp : mazoBarajedo) {
+
+			System.out.printf("%s de %s %n", Cartasp.getCard().getNombre(), Cartasp.getPalo().getNombre());
+
+		}
+		System.out.printf("mazo barajeado son %s", mazoBarajedo.size());
+
+		System.out.println("---------------------------------End------------------------------------");
+
+	}
 }

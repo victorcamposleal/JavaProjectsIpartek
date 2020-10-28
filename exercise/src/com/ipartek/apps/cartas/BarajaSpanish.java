@@ -7,7 +7,7 @@ public class BarajaSpanish extends Baraja {
 	int NUM_carta[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 	String NOMBRE_PALO[] = { "oros", "espadas", "copas", "bastos" };
 
-	String NOMBRE_CARTAS[] = { "AS", "DOS", "TRES", "CUATRO", "CINCO", "SEIS", "SIETE", "OCHO", "NUEVE", "DIEZ" };
+	String NOMBRE_CARTAS[] = { "AS", "DOS", "TRES", "CUATRO", "CINCO", "SEIS", "SIETE", "SOTA", "CABALLO", "REY" };
 
 	@Override
 	void crear() {

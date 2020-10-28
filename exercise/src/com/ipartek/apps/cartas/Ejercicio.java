@@ -6,10 +6,12 @@ public class Ejercicio {
 		BarajaPoker bj = new BarajaPoker();
 		bj.crear();
 		bj.mostrar();
+		bj.barajar();
 
 		BarajaSpanish bs = new BarajaSpanish();
 		bs.crear();
 		bs.mostrarsp();
+		bs.barajarsp();
 
 	}
 
