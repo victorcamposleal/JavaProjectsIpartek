@@ -7,6 +7,7 @@ public class Ejercicio {
 		bj.crear();
 		bj.mostrar();
 		bj.barajar();
+		bj.ordenarNumero();
 
 		BarajaSpanish bs = new BarajaSpanish();
 		bs.crear();

@@ -10,7 +10,7 @@ public class Patinete implements IVehiculo {
 	public Patinete() {
 		super();
 		this.velocidadActual = 0;
-		this.estaArrancado = estaArrancado;
+		this.estaArrancado = false;
 	}
 
 	public int getVelocidadActual() {
@@ -35,10 +35,15 @@ public class Patinete implements IVehiculo {
 	}
 
 	public void Acelerar(int incrementoVel) {
-		if (estaArrancado && velocidadActual < VEL_MAX_PATINETE) {
+		if (estaArrancado) {
 			setVelocidadActual(incrementoVel + velocidadActual);
-			System.out.printf("el patinente va a %s Km/h %n", velocidadActual);
+			if (velocidadActual < VEL_MAX_PATINETE) {
+				System.out.printf("el patinente va a %s Km/h %n", velocidadActual);
 
+			} else if (velocidadActual >= VEL_MAX_PATINETE) {
+				setVelocidadActual(VEL_MAX_PATINETE);
+				System.out.println("no se puede superar la velocidad maxima del patinte ");
+			}
 		} else {
 
 			System.out.println("debe encender el vehiculo");
@@ -60,9 +65,13 @@ public class Patinete implements IVehiculo {
 
 	}
 
-	public void apagar() {
+	public void apagar() throws Exception {
 
-		if (velocidadActual == 0) {
+		if (estaArrancado && velocidadActual > 0) {
+			throw new Exception("no puedes apagarme estoy encendido y voy a mas de 0");
+		}
+
+		else if (velocidadActual == 0) {
 			setEstaArrancado(false);
 		}
 
@@ -72,9 +81,11 @@ public class Patinete implements IVehiculo {
 
 	}
 
-	public void arracnar() {
+	public void arrancar() {
 		// TODO Auto-generated method stub
-		setEstaArrancado(true);
+		if (!estaArrancado) {
+			setEstaArrancado(true);
+		}
 	}
 
 }

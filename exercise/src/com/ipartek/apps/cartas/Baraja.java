@@ -57,17 +57,40 @@ public abstract class Baraja {
 
 	void ordenarNumero() {
 
+		System.out.println(
+				"--------------------------------------------------ordena por numeros------------------------------");
+		ArrayList<Carta> mazoPornumero = new ArrayList<Carta>();
+		int contador = 0;
+		do {
+			contador = contador + 1;
+			for (Carta carta : mazo) {
+
+				if (carta.getNumero() == contador) {
+					mazoPornumero.add(carta);
+				}
+			}
+		} while (contador <= 13);
+
+		for (Carta carta : mazoPornumero) {
+			System.out.printf("%s de %s  %n", carta.getNumero(), carta.getPalo().getNombre());
+		}
+		System.out.println("-------------------------------termina------------------------------------------");
+	}
+
+	void ordenarNumerosp() {
+		ArrayList<Carta> mazoPornumero = new ArrayList<Carta>();
+
 	}
 
 	void barajar() {
 
 		System.out.println("-------------------------------barajea-----------------------------------");
 		Collections.shuffle(mazo);
-		for (Carta card : getMazo()) {
+		for (Carta card : mazo) {
 
 			System.out.printf("%s de %s %n", card.getNumero(), card.getPalo().getNombre());
-			System.out.println("-------------------------------termina------------------------------------------");
 		}
+		System.out.println("-------------------------------termina------------------------------------------");
 
 	}
 

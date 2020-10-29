@@ -10,7 +10,7 @@ public interface IVehiculo {
 	 * este metodo se utilizara para arrancar
 	 */
 
-	void arracnar();
+	void arrancar();
 
 	/**
 	 * este metodo se utilizara para acelerar
@@ -26,6 +26,6 @@ public interface IVehiculo {
 	 * este metodo se utilizara para apagar
 	 */
 
-	void apagar();
+	void apagar() throws Exception;
 
 }
