@@ -3,7 +3,8 @@ package com.ipartek.apps;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.ipartek.modelo.PerroDAOArrayList;
+import com.ipartek.modelo.PerroDAOSqlite;
+import com.ipartek.modelo.PerroDao;
 import com.ipartek.pojo.Perro;
 
 /**
@@ -19,7 +20,7 @@ public class AppPerreras {
 //We have to declare Global variables
 
 	static private Scanner sc = null;
-	static private PerroDAOArrayList modelo = new PerroDAOArrayList();
+	static private PerroDao modelo = new PerroDAOSqlite();
 
 	static private String opcion = "";// option selected by the menu;
 
@@ -32,7 +33,7 @@ public class AppPerreras {
 	private static final String OPTION_OU = "S";
 	private static boolean repeat = false;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 
 		System.out.println("******Welcome to the appp**********");
 		sc = new Scanner(System.in);
@@ -76,30 +77,49 @@ public class AppPerreras {
 		sc.close();
 	}// main
 
-	private static void modificar() {
+	private static void modificar() throws Exception {
 		// TODO generar y modificar
 		ArrayList<Perro> perros = modelo.listar();
-
 		System.out.println("what you wish to modify ");
 		System.out.println("1.Name ");
-		System.out.println("2.Years");
+		System.out.println("2.Wheight");
 		System.out.println("3.Breed");
 		System.out.println("4.isVaccinated");
 
 		String option = sc.nextLine();
-		System.out.println("ingrese el nombre del que quiere modificar");
-		String dname = sc.nextLine();
 		boolean repetidor = true;
+		boolean repetidori = true;
+		String dname2 = "";
+
+		System.out.println("ingrese el nombre del que quiere modificar");
+		do {
+
+			String dname = sc.nextLine();
+
+			for (Perro perro6 : perros) {
+				if (dname.equals(perro6.getNombre())) {
+					dname2 = dname;
+					repetidori = false;
+					break;
+				}
+
+			}
+			if (repetidori) {
+				System.out.println("el nombre no existe ingrese correctamente el nombre quiere modificar");
+			}
+		} while (repetidori);
 
 		do {
 			switch (option) {
 			case "1":
 				System.out.println("ingrese el nuevo nombre");
 				String newName = sc.nextLine();
+
 				for (Perro perro : perros) {
-					if (dname.equals(perro.getNombre())) {
+					if (dname2.equals(perro.getNombre())) {
 
 						perro.setNombre(newName);
+						modelo.modificar(perro);
 						break;
 					}
 					repetidor = false;
@@ -107,12 +127,16 @@ public class AppPerreras {
 				break;
 
 			case "2":
-				System.out.println("ingrese la nueva edad");
-				int newYear = Integer.parseInt(sc.nextLine());
+				System.out.println("ingrese  nuevo Peso");
+
+				float newWeight = Float.parseFloat(sc.nextLine());
 				for (Perro perro : perros) {
-					if (dname.equals(perro.getNombre())) {
+
+					if (dname2.equals(perro.getNombre())) {
+
 						try {
-							perro.setEdad(newYear);
+							perro.setPeso(newWeight);
+							modelo.modificar(perro);
 							break;
 						} catch (Exception e) {
 							System.out.println(e.getMessage());
@@ -126,9 +150,10 @@ public class AppPerreras {
 				System.out.println("ingrese la nueva Raza");
 				String newRaza = sc.nextLine();
 				for (Perro perro : perros) {
-					if (dname.equals(perro.getNombre())) {
+					if (dname2.equals(perro.getNombre())) {
 
 						perro.setRaza(newRaza);
+						modelo.modificar(perro);
 						break;
 					}
 					repetidor = false;
@@ -150,9 +175,10 @@ public class AppPerreras {
 				}
 
 				for (Perro perro : perros) {
-					if (dname.equals(perro.getNombre())) {
+					if (dname2.equals(perro.getNombre())) {
 
 						perro.setIsVacunado(vacuna);
+						modelo.modificar(perro);
 						break;
 					}
 					repetidor = false;
@@ -169,14 +195,32 @@ public class AppPerreras {
 
 	// ******************all the methods we will use in this
 	// application************************
-	private static void borrar() {
-		System.out.println("dime un el nombre del perro que quieres eliminar");
-		String dnombre = sc.nextLine();
-		ArrayList<Perro> perros = modelo.listar();
-		for (Perro perro : perros) {
-			if (dnombre.equals(perro.getNombre())) {
+	private static void borrar() throws Exception {
 
-				perros.remove(perro);
+		ArrayList<Perro> perros = modelo.listar();
+		System.out.println("dime un el nombre del perro que quieres eliminar");
+		boolean repetidori = true;
+		String dnombre2 = "";
+		do {
+			String dnombre = sc.nextLine();
+			for (Perro perro6 : perros) {
+				if (dnombre.equals(perro6.getNombre())) {
+					dnombre2 = dnombre;
+					repetidori = false;
+					break;
+				}
+
+			}
+			if (repetidori) {
+				System.out.println("el nombre ingresado no existe intente de nuevo");
+			}
+		} while (repetidori);
+
+		for (Perro perro : perros) {
+			if (dnombre2.equals(perro.getNombre())) {
+				modelo.eliminar(perro.getId());
+				System.out.println("el perro se ha eliminado correctamente");
+
 				break;
 			}
 		}
@@ -184,28 +228,31 @@ public class AppPerreras {
 	}
 
 	private static void crear() {
-		ArrayList<Perro> perros = modelo.listar();
-		Perro p = new Perro();
 
+		Perro p = new Perro();
 		System.out.println("introduce un nombre");
 		p.setNombre(sc.nextLine());
+		System.out.println("introduce una Raza");
+		p.setRaza(sc.nextLine());
+		System.out.println("introduce un peso");
+		p.setPeso(Float.parseFloat(sc.nextLine()));
+		System.out.println("esta vacunado?");
+		p.setIsVacunado(Boolean.parseBoolean(sc.nextLine()));
+
 		try {
-			System.out.println("introduce una edad");
-			p.setEdad(Integer.parseInt(sc.nextLine()));
+			modelo.crear(p);
+			System.out.println("Perro creado corretamente");
 		} catch (Exception e) {
 
 			System.out.println(e.getMessage());
 		}
 
-		perros.add(p);
-
 	}
 
 	private static void listar() {
-
 		ArrayList<Perro> perros = modelo.listar();
 		for (Perro perro : perros) {
-			System.out.printf(" %s [%s] %d years %n", perro.getNombre(), perro.getRaza(), perro.getEdad());
+			System.out.printf(" %s %s %s kg %n", perro.getNombre(), perro.getRaza(), perro.getPeso());
 
 		}
 

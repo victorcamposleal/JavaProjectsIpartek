@@ -31,10 +31,11 @@ public interface PerroDao {
 	 * @param p Perro con los datos a guardad
 	 * @Throws Exception si el nombre del peerro ya existe
 	 * @return perro con su id actualizados
+	 * @throws Exception
 	 * 
 	 */
 
-	Perro crear(Perro p);
+	Perro crear(Perro p) throws Exception;
 
 	/**
 	 * modifica un perro
@@ -44,7 +45,7 @@ public interface PerroDao {
 	 * @throws si un nombre existe
 	 */
 
-	Perro modificar(Perro perro) throws Exception;;
+	Perro modificar(Perro p) throws Exception;
 
 	/*
 	 * @param id

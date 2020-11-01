@@ -10,6 +10,7 @@ public class Perro extends Mamifero {
 
 	private String raza;
 	private int edad;
+	private float peso;
 	private boolean isVacunado;
 
 	// Constructores
@@ -18,10 +19,11 @@ public class Perro extends Mamifero {
 	public Perro() {
 		super("sin nombre");
 
-		this.raza = "";
-		this.isVacunado = true;
-		this.edad = EDAD_MIN;
 		this.id = 0;
+		this.raza = "";
+		this.peso = 0f;
+		this.edad = EDAD_MIN;
+		this.isVacunado = true;
 	}
 
 	// otro constructor sobrecargado
@@ -34,6 +36,22 @@ public class Perro extends Mamifero {
 		this.id = 0;
 	}
 
+	public Perro(String nombre, String raza, float peso, boolean isVacunado) {
+		this(nombre);
+		this.raza = raza;
+		this.peso = peso;
+		this.isVacunado = isVacunado;
+
+	}
+
+	public Perro(int id, String nombre, String raza, float peso, boolean isVacunado) {
+		this(nombre);
+		this.raza = raza;
+		this.peso = peso;
+		this.isVacunado = isVacunado;
+		this.id = id;
+	}
+
 //getters y setters
 
 	public String getRaza() {
@@ -42,6 +60,18 @@ public class Perro extends Mamifero {
 
 	public void setRaza(String raza) {
 		this.raza = raza;
+	}
+
+	public float getPeso() {
+		return peso;
+	}
+
+	public void setPeso(float peso) {
+		if (peso < 0) {
+			this.peso = 0;
+		} else {
+			this.peso = peso;
+		}
 	}
 
 	public boolean getIsVacunado() {
@@ -78,9 +108,8 @@ public class Perro extends Mamifero {
 
 	@Override
 	public String toString() {
-		return "Perro [id=" + id + ", raza=" + raza + ", edad=" + edad + ", isVacunado=" + isVacunado + ", getPatas()="
-				+ getPatas() + ", getNombre()=" + getNombre() + ", getClass()=" + getClass() + ", hashCode()="
-				+ hashCode() + ", toString()=" + super.toString() + "]";
+		return "Perro [id=" + id + ", raza=" + raza + ", edad=" + edad + ", peso=" + peso + ", isVacunado=" + isVacunado
+				+ ", Nombre=" + getNombre() + "]";
 	}
 
 	// WE ADD THE TO STRING
