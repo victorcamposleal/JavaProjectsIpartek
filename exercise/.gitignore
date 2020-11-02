@@ -1,1 +1,5 @@
-/bin/
+#ficheros o carpetas que no queremos usar en git
+/.classpath
+/.settings
+/.project
+/bin
