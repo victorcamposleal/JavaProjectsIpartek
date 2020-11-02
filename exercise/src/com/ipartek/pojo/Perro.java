@@ -4,6 +4,8 @@ public class Perro extends Mamifero {
 //varibles para todo el sistema
 	public static final int EDAD_MIN = 0;
 	public static final int EDAD_MAX = 120;
+
+	public static final String RAZA_POR_DEFECTO = "cruce";
 	// Atributos, deben ser siempre privados
 	// la forma de manipular estos atributos es a traves de los getteres y settres
 	private int id;
@@ -59,7 +61,16 @@ public class Perro extends Mamifero {
 	}
 
 	public void setRaza(String raza) {
-		this.raza = raza;
+		if (raza != null) {
+
+			if (raza.trim().isEmpty()) {
+				raza = RAZA_POR_DEFECTO;
+			}
+			this.raza = raza;
+
+		} else {
+			this.raza = RAZA_POR_DEFECTO;
+		}
 	}
 
 	public float getPeso() {

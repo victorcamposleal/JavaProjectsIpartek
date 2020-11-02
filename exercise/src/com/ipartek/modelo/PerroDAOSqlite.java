@@ -39,6 +39,7 @@ public class PerroDAOSqlite implements PerroDao {
 				p.setNombre(rs.getString("nombre"));
 				p.setRaza(rs.getString("raza"));
 				p.setPeso(rs.getFloat("peso"));
+				p.setIsVacunado(rs.getBoolean("peso"));
 				// we add the dog to the arrayList
 				perros.add(p);
 
@@ -96,7 +97,9 @@ public class PerroDAOSqlite implements PerroDao {
 			// recuperar el ultimo id generado
 			if (affectedsRows == 1) {
 				try (ResultSet rsKeys = pst.getGeneratedKeys()) {
+					// pide las keys generadas arriba y lugo abajo recorre el resultado
 					if (rsKeys.next()) {
+						// coge el resultado de la columna uno
 						int id = rsKeys.getInt(1);
 						p.setId(id);
 					}

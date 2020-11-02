@@ -97,7 +97,7 @@ public class AppPerreras {
 			String dname = sc.nextLine();
 
 			for (Perro perro6 : perros) {
-				if (dname.equals(perro6.getNombre())) {
+				if (dname.equalsIgnoreCase(perro6.getNombre())) {
 					dname2 = dname;
 					repetidori = false;
 					break;
@@ -116,13 +116,13 @@ public class AppPerreras {
 				String newName = sc.nextLine();
 
 				for (Perro perro : perros) {
-					if (dname2.equals(perro.getNombre())) {
+					if (dname2.equalsIgnoreCase(perro.getNombre())) {
 
 						perro.setNombre(newName);
 						modelo.modificar(perro);
+						repetidor = false;
 						break;
 					}
-					repetidor = false;
 				}
 				break;
 
@@ -132,17 +132,17 @@ public class AppPerreras {
 				float newWeight = Float.parseFloat(sc.nextLine());
 				for (Perro perro : perros) {
 
-					if (dname2.equals(perro.getNombre())) {
+					if (dname2.equalsIgnoreCase(perro.getNombre())) {
 
 						try {
 							perro.setPeso(newWeight);
 							modelo.modificar(perro);
+							repetidor = false;
 							break;
 						} catch (Exception e) {
 							System.out.println(e.getMessage());
 						}
 					}
-					repetidor = false;
 				}
 				break;
 
@@ -150,13 +150,13 @@ public class AppPerreras {
 				System.out.println("ingrese la nueva Raza");
 				String newRaza = sc.nextLine();
 				for (Perro perro : perros) {
-					if (dname2.equals(perro.getNombre())) {
+					if (dname2.equalsIgnoreCase(perro.getNombre())) {
 
 						perro.setRaza(newRaza);
 						modelo.modificar(perro);
+						repetidor = false;
 						break;
 					}
-					repetidor = false;
 				}
 				break;
 
@@ -175,13 +175,13 @@ public class AppPerreras {
 				}
 
 				for (Perro perro : perros) {
-					if (dname2.equals(perro.getNombre())) {
+					if (dname2.equalsIgnoreCase(perro.getNombre())) {
 
 						perro.setIsVacunado(vacuna);
 						modelo.modificar(perro);
+						repetidor = false;
 						break;
 					}
-					repetidor = false;
 				}
 				break;
 
@@ -191,6 +191,7 @@ public class AppPerreras {
 				break;
 			}
 		} while (repetidor);
+		System.out.println("Perro Modificado correctamente");
 	}
 
 	// ******************all the methods we will use in this
@@ -198,36 +199,106 @@ public class AppPerreras {
 	private static void borrar() throws Exception {
 
 		ArrayList<Perro> perros = modelo.listar();
-		System.out.println("dime un el nombre del perro que quieres eliminar");
+		System.out.println("introduce el id del perro que quieres eliminar");
 		boolean repetidori = true;
 		String dnombre2 = "";
+		int idSelect2 = 0;
+		String opcion = "";
+
 		do {
-			String dnombre = sc.nextLine();
+			int idSelect = Integer.parseInt(sc.nextLine());
 			for (Perro perro6 : perros) {
-				if (dnombre.equals(perro6.getNombre())) {
-					dnombre2 = dnombre;
+				if (idSelect == (perro6.getId())) {
+					idSelect2 = idSelect;
+					dnombre2 = perro6.getNombre();
 					repetidori = false;
 					break;
 				}
 
 			}
 			if (repetidori) {
-				System.out.println("el nombre ingresado no existe intente de nuevo");
+				System.out.println("el id ingresado no existe intente de nuevo con el id correcto");
 			}
 		} while (repetidori);
 
-		for (Perro perro : perros) {
-			if (dnombre2.equals(perro.getNombre())) {
-				modelo.eliminar(perro.getId());
-				System.out.println("el perro se ha eliminado correctamente");
+		System.out.printf("el perro que quieres eliminar a %s estas seguro que quieres eliminar a un perro? s o n:",
+				dnombre2);
+		opcion = sc.nextLine();
 
-				break;
+		if (opcion.equals("s")) {
+
+			System.out.printf(
+					"el perro que quieres eliminar es [%s] escribe su nombre excatamente como indican los corchetes",
+					dnombre2);
+			do {
+				String dnombre = sc.nextLine();
+				for (Perro perro6 : perros) {
+					if (dnombre.equalsIgnoreCase(perro6.getNombre())) {
+						dnombre2 = dnombre;
+						repetidori = false;
+						break;
+					}
+
+				}
+				if (repetidori) {
+					System.out.println("el nombre ingresado no existe intente de nuevo");
+				}
+			} while (repetidori);
+
+			for (Perro perro : perros) {
+				if (dnombre2.equalsIgnoreCase(perro.getNombre())) {
+					modelo.eliminar(perro.getId());
+					System.out.println("el perro se ha eliminado correctamente");
+
+					break;
+				}
 			}
 		}
+
+		else {
+			System.out.printf("%n  volvemos al menu %n");
+		}
+
+		/*
+		 * boolean flag = true; int id = 0; Perro pEliminar = null;
+		 * 
+		 * // buscar perro por id do {
+		 * System.out.println("Dime el ID del perro para eliminar:"); id =
+		 * Integer.parseInt(sc.nextLine());
+		 * 
+		 * pEliminar = modelo.recuperar(id); if ( pEliminar == null ) {
+		 * System.out.println("*Lo sentimos pero no existe ese perro"); }else { flag =
+		 * false; }
+		 * 
+		 * } while (flag);
+		 * 
+		 * 
+		 * flag = true; // pedir confirmacion de nombre para eliminar do { System.out.
+		 * printf("Por favor escribe [%s] para eliminar o \"s\" para [S]alir\n",
+		 * pEliminar.getNombre() ); String nombre = sc.nextLine();
+		 * 
+		 * if ( OP_SALIR.equalsIgnoreCase(nombre)) { break; // salimos del bucle
+		 * 
+		 * }else { // comprobar nombre
+		 * 
+		 * if ( pEliminar.getNombre().equalsIgnoreCase(nombre)) {
+		 * 
+		 * try { modelo.eliminar(id); flag = false;
+		 * System.out.println("Hemos dado de baja al perro");
+		 * 
+		 * }catch (Exception e) { e.printStackTrace(); }
+		 * 
+		 * }else { System.out.println("**No coincide el nombre**"); } }
+		 * 
+		 * } while (flag);
+		 */
 
 	}
 
 	private static void crear() {
+
+		boolean isFallo = true;
+		boolean isFallo2 = true;
 
 		Perro p = new Perro();
 		System.out.println("introduce un nombre");
@@ -235,24 +306,38 @@ public class AppPerreras {
 		System.out.println("introduce una Raza");
 		p.setRaza(sc.nextLine());
 		System.out.println("introduce un peso");
-		p.setPeso(Float.parseFloat(sc.nextLine()));
+		do {
+			try {
+				p.setPeso(Float.parseFloat(sc.nextLine()));
+				isFallo = false;
+
+			} catch (Exception e) {
+				System.out.println("el peso tiene que tener un valor numerico ingrese el peso otra vez");
+
+			}
+		} while (isFallo);
 		System.out.println("esta vacunado?");
 		p.setIsVacunado(Boolean.parseBoolean(sc.nextLine()));
+		do {
+			try {
+				modelo.crear(p);
+				System.out.println("Perro creado corretamente");
+				System.out.println(p);
+				isFallo2 = false;
+			} catch (Exception e) {
+				System.out.println("el nombre ingresado ya esxiste por favor ingrese un nombre nuevo");
+				p.setNombre(sc.nextLine());
 
-		try {
-			modelo.crear(p);
-			System.out.println("Perro creado corretamente");
-		} catch (Exception e) {
-
-			System.out.println(e.getMessage());
-		}
+			}
+		} while (isFallo2);
 
 	}
 
 	private static void listar() {
 		ArrayList<Perro> perros = modelo.listar();
 		for (Perro perro : perros) {
-			System.out.printf(" %s %s %s kg %n", perro.getNombre(), perro.getRaza(), perro.getPeso());
+			System.out.printf("%2s %15s %13s %13s kg %13s %n", perro.getId(), perro.getNombre(), perro.getRaza(),
+					perro.getPeso(), (perro.getIsVacunado()) ? "vacunado" : "*Sin Vacunar*");
 
 		}
 
